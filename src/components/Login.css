@@ -18,7 +18,7 @@ body {
     display: grid;
     place-items: center;
     margin: 0;
-    background-image: url('../img/background.svg');
+    background-image: url('../img/cool-background.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: "Euclid Circular A";
