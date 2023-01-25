@@ -1,8 +1,9 @@
-import './RegisterPage.css'
+import './SignUpPage.css'
 import React, { useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 
-const RegisterPage = () => {
-    const usernames = ["david", "david1", "david2"];
+const SignUpPage = () => {
+    const usernames = [""];
     const [spinnerClass, setSpinnerClass] = useState("spinner");
     const [alertClass, setAlertClass] = useState("alert");
     const spinnerRef = useRef(null);
@@ -34,6 +35,31 @@ const RegisterPage = () => {
         timeoutId = setTimeout(() => updateUi(value), 500);
     };
 
+    const submit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:9095/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // data to send in the request body
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="login-card">
             <h2>Sign Up</h2>
@@ -58,10 +84,11 @@ const RegisterPage = () => {
                     type="password"
                     placeholder="Password"
                 />
-                <button className="control" type="button">SIGN UP</button>
+                <button type='submit' className="control">SIGN UP</button>
             </form>
+            <Link to='/'> <button>back to LOGIN</button></Link>
         </div>
     )
 };
 
-export default RegisterPage;
+export default SignUpPage;

@@ -1,13 +1,44 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { GithubLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import './Login.css'
 
 const Login = () => {
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePassword = () => {
         setShowPassword(!showPassword);
     };
+
+    const submit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:9095/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // data to send in the request body
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
 
     return (
         <div className="login-card">
@@ -17,8 +48,9 @@ const Login = () => {
                 <input
                     spellCheck={false}
                     className="control"
-                    type="text"
-                    placeholder="Username"
+                    type="e-mail"
+                    placeholder="E-mail"
+                    onChange={e => setEmail(e.target.value)}
                 />
                 <div className="password">
                     <input
@@ -36,9 +68,13 @@ const Login = () => {
                         onClick={togglePassword}
                     ></button>
                 </div>
-                <button className="control" type="button">LOGIN</button>
+                <button onClick={submit} className="control" type="button">LOGIN</button>
             </form>
-        </div>
+            <Link to='/signup'> <button>SIGN UP</button></Link>
+            <br />
+            <GithubLoginButton onClick={() => alert("GitHub")} />
+            <GoogleLoginButton onClick={() => alert("Google")} />
+        </div >
     )
 };
 
