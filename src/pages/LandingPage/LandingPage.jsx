@@ -1,7 +1,7 @@
 import './LandingPage.css'
-import Card from "../components/Card.jsx";
-import Navbar from "../components/Navbar";
-import Login from "../components/Login.jsx";
+import Card from "../../components/Card/Card";
+import Navbar from "../../components/Navbar/Navbar";
+import Login from '../LoginPage/Login.jsx'
 
 const LandingPage = () => {
     return (
